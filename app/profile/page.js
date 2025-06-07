@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '../context/AuthContext';
 import Link from 'next/link';
 import Image from 'next/image';
+import { collection, query, where, getDocs } from 'firebase/firestore';
+import { auth, db } from '../firebase';
 
 export default function Profile() {
   const { user, userProfile, loading, logout, updateUserProfile } = useAuth();
@@ -18,6 +20,7 @@ export default function Profile() {
   const [newSkill, setNewSkill] = useState('');
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
+  const [reviews, setReviews] = useState([]);
 
   // Redirect if not logged in
   useEffect(() => {
@@ -35,6 +38,32 @@ export default function Profile() {
       setSkills(userProfile.skills || []);
     }
   }, [userProfile, user]);
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/login');
+      return;
+    }
+
+    const fetchUserReviews = async () => {
+      try {
+        const reviewsQuery = query(
+          collection(db, 'reviews'),
+          where('userId', '==', user.uid)
+        );
+        const reviewsSnapshot = await getDocs(reviewsQuery);
+        const reviewsList = reviewsSnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setReviews(reviewsList);
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+      }
+    };
+
+    fetchUserReviews();
+  }, [user, router]);
 
   const handleLogout = async () => {
     try {

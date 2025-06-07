@@ -4,6 +4,8 @@ import { useAuth } from '../context/AuthContext';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { auth } from '../firebase';
 
 export default function Login() {
   const { user, signInWithGoogle, signInWithEmail, loading } = useAuth();
@@ -22,13 +24,13 @@ export default function Login() {
   }, [user, loading, router]);
 
   const handleGoogleSignIn = async () => {
+    const provider = new GoogleAuthProvider();
     try {
-      setError('');
-      await signInWithGoogle();
-      // Will redirect in the useEffect hook
+      await signInWithPopup(auth, provider);
+      router.push('/dashboard');
     } catch (error) {
       console.error('Error signing in with Google:', error);
-      setError('Failed to sign in with Google. Please try again.');
+      setError('Failed to sign in with Google');
     }
   };
 
@@ -67,6 +69,11 @@ export default function Login() {
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
       </div>
     );
+  }
+
+  if (user) {
+    router.push('/dashboard');
+    return null;
   }
 
   return (

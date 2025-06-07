@@ -1,28 +1,21 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import { Inter } from 'next/font/google';
+import './globals.css';
+import { AuthProvider } from './context/AuthContext';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: "BookBay",
-  description: "PH for book summaries",
+  title: 'BookBay - Book Reviews',
+  description: 'A platform for sharing and discovering book reviews',
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={inter.className}>
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );
