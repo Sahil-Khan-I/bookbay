@@ -5,6 +5,7 @@ import { collection, addDoc, getDocs, query, where, doc, updateDoc, increment, a
 import { auth, db } from '../firebase';
 import { signOut } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
@@ -202,9 +203,12 @@ export default function Dashboard() {
               <div className="text-sm text-green-400/70 font-mono">{terminalText}<span className="animate-blink">_</span></div>
             </div>
             <div className="flex items-center space-x-4">
-              <a href="/" className="bg-green-500/10 text-green-500 border border-green-500/30 px-4 py-2 rounded-md hover:bg-green-500/20 font-mono transition-all">
+              <Link 
+                href="/" 
+                className="bg-green-500/10 text-green-500 border border-green-500/30 px-4 py-2 rounded-md hover:bg-green-500/20 font-mono transition-all"
+              >
                 [HOME]
-              </a>
+              </Link>
               <button
                 onClick={handleLogout}
                 className="bg-red-500/10 text-red-400 border border-red-500/30 px-4 py-2 rounded-md hover:bg-red-500/20 font-mono transition-all"

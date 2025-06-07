@@ -150,17 +150,19 @@ export default function Profile() {
             <span className="text-green-500 ml-1">/&gt;</span>
           </Link>
           <div className="flex items-center space-x-4">
-            <Link
-              href="/discover"
-              className="relative inline-flex items-center justify-center overflow-hidden rounded-lg bg-gray-800 p-0.5 text-sm font-medium text-white border border-green-900 hover:border-green-500 transition-colors focus:outline-none"
+            <Link 
+              href="/" 
+              className="bg-green-500/10 text-green-500 border border-green-500/30 px-4 py-2 rounded-md hover:bg-green-500/20 font-mono transition-all"
             >
-              <span className="relative px-5 py-2.5 rounded-md flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
-                </svg>
-                Discover
-              </span>
+              [HOME]
             </Link>
+            <Link 
+              href="/dashboard" 
+              className="bg-green-500/10 text-green-500 border border-green-500/30 px-4 py-2 rounded-md hover:bg-green-500/20 font-mono transition-all"
+            >
+              [DASHBOARD]
+            </Link>
+          </div>
           <button
             onClick={handleLogout}
               className="relative inline-flex items-center justify-center overflow-hidden rounded-lg bg-red-900 p-0.5 text-sm font-medium text-white border border-red-900 hover:border-red-700 transition-colors focus:outline-none"
