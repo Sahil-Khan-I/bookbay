@@ -302,14 +302,15 @@ export default function Dashboard() {
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-2">
                       <button
-                        onClick={() => handleUpvote(review.id, review.upvotes || 0, review.upvotedBy || [])}
-                        className={`flex items-center space-x-1 px-2 py-1 rounded-md ${
+                        onClick={() => handleUpvote(review.id, review.upvotes, review.upvotedBy)}
+                        className={`flex items-center space-x-1 px-3 py-1 rounded-md transition-all ${
                           review.upvotedBy?.includes(user.uid)
-                            ? 'bg-green-500/20 text-green-400 border border-green-500/30'
-                            : 'bg-black/50 text-green-500/70 hover:bg-green-500/10 border border-green-500/20'
-                        } transition-all`}
+                            ? 'bg-green-500/20 text-green-400 border border-green-500/50'
+                            : 'bg-black/50 text-green-500/70 border border-green-500/30 hover:bg-green-500/10'
+                        }`}
                       >
-                        <span>[UPVOTE] {review.upvotes || 0}</span>
+                        <span className="text-sm font-mono">↑</span>
+                        <span className="text-sm font-mono">{review.upvotes || 0}</span>
                       </button>
                       <button
                         onClick={() => handleDeleteReview(review.id)}
